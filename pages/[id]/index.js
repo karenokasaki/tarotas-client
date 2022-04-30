@@ -1,12 +1,9 @@
-import { useRouter } from 'next/router'
+
 import { useEffect, useState } from "react";
 import { api } from '../api/api';
 import Link from 'next/link'
 
 function User() {
-
-    const router = useRouter()
-    const { idUser } = router.query
 
     const [isLoading, setIsloading] = useState(true)
     const [user, setUser] = useState({})
