@@ -5,7 +5,6 @@ import { useContext } from 'react'
 function Navbar() {
 
     const { loggedInUser } = useContext(AuthContext)
-    console.log(loggedInUser)
 
     return (
         <div>
@@ -20,7 +19,7 @@ function Navbar() {
             {loggedInUser.token &&
                 <>
                     <Link href="/logout" passHref><p>Logout</p></Link>
-                    <Link href={`/${loggedInUser.user._id}`} passHref><p>User</p></Link>
+                    <Link href={`/user/${loggedInUser.user._id}`} passHref><p>User</p></Link>
                 </>
 
             }

@@ -20,8 +20,7 @@ function Login() {
                         const response = await api.post("/users/login", values);
                         setLoggedInUser(response.data); // Nossa função do useContext
                         localStorage.setItem("loggedInUser", JSON.stringify(response.data)); // Passa pro cache local
-                        console.log(response.data)
-                        router.push(`/${response.data.user._id}`) // Redirecionamento
+                        router.push(`/user/${response.data.user._id}`) // Redirecionamento
                     } catch (e) { alert(`Algo deu errado`) }
                 }}>
                 <Form>
@@ -30,7 +29,7 @@ function Login() {
                         name='email'
                         type='text'
                         placeholder='Email'
-                        require="true"
+                        require={true}
                         className="mb-3 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 focus:z-10 sm:text-sm"
                     />
                     <Field
@@ -38,7 +37,7 @@ function Login() {
                         name="password"
                         placeholder="Senha"
                         type="password"
-                        required="true"
+                        required={true}
                         className="mt-5 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 focus:z-10 sm:text-sm"
                     />
                     <button

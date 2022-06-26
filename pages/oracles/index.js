@@ -20,6 +20,8 @@ function Oracles() {
         fetchOracles();
     }, [])
 
+    console.log(oracles)
+
 
 
     return (

@@ -6,10 +6,7 @@ export default function Home() {
     <div className='text-3xl font-bold underline'>
 
       <p>HOME PAGE</p>
-
-
-
-
+      
     </div>
   )
 }

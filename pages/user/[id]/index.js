@@ -1,9 +1,14 @@
 
 import { useEffect, useState } from "react";
-import { api } from '../api/api';
+import { api } from '../../api/api';
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+
 
 function User() {
+
+    const router = useRouter()
+    const { id } = router.query
 
     const [isLoading, setIsloading] = useState(true)
     const [user, setUser] = useState({})
@@ -28,17 +33,19 @@ function User() {
 
             <div>
                 <h1>Informações do usuário</h1>
-                <p>Nome {user.name}</p>
-                <p>Email {user.email}</p>
-                <p>Id {user._id}</p>
+                <p>Olá, {user.name}</p>
+                <p>Email: {user.email}</p>
+                <p>Id: {user._id}</p>
                 <p>Oráculos Favoritos: </p>
                 {!isLoading && (user.favorite.length > 0) &&
                     user.favorite.map((cE) => {
                         return (
-                            <Link href={`/oracles/${cE._id}`} passHref key={cE._id}>{cE.name}</Link>
+                            <p key={cE.name}><Link href={`/user/${id}/oracle/${cE._id}`} passHref key={cE._id}>{cE.name}</Link></p>
                         )
                     })
                 }
+
+                <p><Link href={`/user/${id}/oracle/add`}>Criar um Oráculo</Link></p>
             </div>
         </div>
     );
