@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react'
 import { api } from '../api/api'
 import { AuthContext } from '../../contexts/AuthContext'
 import { useContext } from 'react'
-
+import Card from '../../components/Card'
+import RandomCard from '../../components/randomCard'
 function Oracle() {
 
     const { loggedInUser } = useContext(AuthContext)
@@ -11,7 +12,8 @@ function Oracle() {
 
     const router = useRouter()
     const { id } = router.query
-    console.log(id)
+
+    const [showCard, setShowCard] = useState(false)
 
     const [isLoading, setIsloading] = useState(true)
     const [oracle, setOracle] = useState({
@@ -27,25 +29,13 @@ function Oracle() {
 
         async function fetchOracle() {
             setIsloading(true)
-            if (loggedInUser.token) {
-                try {
-                    const response = await api.get(`/oracles/user/${id}`);
-                    setOracle(...response.data)
-                    setIsloading(false)
-                    console.log(response.data, "response do usuario logado")
-                } catch (error) {
-                    console.error(error);
-                }
-            } else {
-
-                try {
-                    const response = await api.get(`/oracles/${id}`);
-                    setOracle(...response.data);
-                    setIsloading(false)
-                    console.log("response sem estar logado")
-                } catch (error) {
-                    console.error(error);
-                }
+            try {
+                const response = await api.get(`/oracles/list/${id}`);
+                setOracle({ ...response.data })
+                setIsloading(false)
+                console.log(response, "response do usuario logado")
+            } catch (error) {
+                console.error(error);
             }
         }
         fetchOracle();
@@ -58,15 +48,20 @@ function Oracle() {
                 <div>
                     <p>Pagina de detalhes do oracle</p>
                     <p>Nome: {oracle.name}</p>
+                    <p>Descrição: {oracle.description}</p>
+                    <p>Cartas</p>
                     {oracle.cards.map((cE) => {
                         return (
-                            <div key={cE}>
-                                <p>{cE.name} - {cE.number}</p>
-                                <p>{cE.desc_min}</p> <hr></hr>
-                            </div>
+                            <Card card={cE} key={cE.name} />
                         )
                     })}
-                    <p>Tiragens recentes:</p>
+
+                    <div>
+                        <button onClick={() => setShowCard(!showCard)}>Tirar uma carta!</button>
+                        {showCard && oracle.cards.length > 0 &&
+                            <RandomCard oracle={oracle} />
+                        }
+                    </div>
                 </div>
             }
         </>

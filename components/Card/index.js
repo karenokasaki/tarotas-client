@@ -7,12 +7,12 @@ function Card({ card }) {
 
     return (
         <div onClick={() => setShowInfo(!showInfo)}>
-            <p>{card.name} - {card.number}</p>
-            <p>{card.description_short}</p>
+            <p>Nome: {card.name} - Numero: {card.number}</p>
+            <p>Descrição curta: {card.description_short}</p>
             {showInfo &&
                 <>
-                    <p>{card.description}</p>
-                    <p>{card.translation}</p>
+                    <p>Descrição: {card.description}</p>
+                    <p>Tradução: {card.translation}</p>
                 </>
             }
         </div>
